@@ -93,6 +93,7 @@ func setupRoutes() *echo.Echo {
 	e.POST("/login", accountApi.LoginEndpoint)
 	e.POST("/insertAsset", assetApi.NoAuthAssetCreateEndpoint)
 	e.POST("/listAsset", assetApi.NoAuthAssetAllEndpoint)
+	e.POST("/updateAsset", assetApi.NoAuthAssetUpdateEndpoint)
 
 	account := e.Group("/account")
 	{

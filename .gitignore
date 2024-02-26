@@ -1,5 +1,4 @@
 yarn.lock
-web/build
 *.log
 *.db
 .DS_Store
@@ -25,7 +24,6 @@ web/build
 /data/
 /logs/
 
-/web/build/*
 /server/resource/build/*
 /server/resource/static/
 /server/resource/*.html

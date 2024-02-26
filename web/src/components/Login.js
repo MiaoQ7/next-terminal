@@ -38,13 +38,24 @@ const LoginForm = () => {
 
         let user = data['info'];
         setCurrentUser(user);
-        if (user) {
-            if (user['type'] === 'user') {
-                navigate('/my-asset');
-            } else {
-                navigate('/');
+        // assetId=08602940-16d2-4dcb-924c-940febed1d03&assetName=D2:46:86:55:A7:65&protocol=rdp
+        let assetId = sessionStorage.getItem('assetId')
+        let assetName = sessionStorage.getItem('assetName')
+        let protocol = sessionStorage.getItem('protocol')
+        if (assetId && assetName && protocol) {
+            if (user) {
+                navigate(`/access?assetId=${assetId}&assetName=${assetName}&protocol=${protocol}`);
+            }
+        } else {
+            if (user) {
+                if (user['type'] === 'user') {
+                    navigate('/my-asset');
+                } else {
+                    navigate('/');
+                }
             }
         }
+
     }
 
     const login = async (values) => {
@@ -95,7 +106,7 @@ const LoginForm = () => {
                     <Title level={1}>{branding['name']}</Title>
                     <Text>{branding['description']}</Text>
                 </div>
-                <Form onFinish={handleSubmit} className="login-form">
+                <Form onFinish={handleSubmit} className="login-form" initialValues={{username: 'admin', password: 'admin'}}>
                     <Form.Item name='username' rules={[{required: true, message: '请输入登录账号！'}]}>
                         <Input prefix={<UserOutlined/>} placeholder="登录账号"/>
                     </Form.Item>

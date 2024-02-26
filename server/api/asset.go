@@ -36,6 +36,37 @@ func (assetApi AssetApi) AssetCreateEndpoint(c echo.Context) error {
 	return Success(c, nil)
 }
 
+func (assetApi AssetApi) NoAuthAssetCreateEndpoint(c echo.Context) error {
+	m := maps.Map{}
+	if err := c.Bind(&m); err != nil {
+		return err
+	}
+	account, _ := repository.UserRepository.FindByUsername(context.TODO(), "admin")
+	m["owner"] = account.ID
+
+	if _, err := service.AssetService.Create(context.TODO(), m); err != nil {
+		return err
+	}
+
+	return Success(c, nil)
+}
+
+func (assetApi AssetApi) NoAuthAssetAllEndpoint(c echo.Context) error {
+	protocol := c.QueryParam("protocol")
+	assets, err := repository.AssetRepository.FindByProtocol(context.TODO(), protocol)
+	if err != nil {
+		return err
+	}
+	items := make([]maps.Map, len(assets))
+	for i, e := range assets {
+		items[i] = maps.Map{
+			"id":   e.ID,
+			"name": e.Name,
+		}
+	}
+	return Success(c, items)
+}
+
 func (assetApi AssetApi) AssetImportEndpoint(c echo.Context) error {
 	account, _ := GetCurrentAccount(c)
 

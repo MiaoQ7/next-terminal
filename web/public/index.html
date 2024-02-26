@@ -16,6 +16,23 @@
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
+<script>
+  function getUrlParams(url) {
+    const params = {};
+    const regex = /[?&]([^=#]+)=([^&#]*)/g;
+    let match;
+    while((match = regex.exec(url)) !== null) {
+      const key = decodeURIComponent(match[1]);
+      const value = decodeURIComponent(match[2]);
+      params[key] = value;
+    }
+    return params;
+  }
+  let params = getUrlParams(window.location.href)
+  for (const key in params) {
+    sessionStorage.setItem(key, params[key])
+  }
+</script>
 <div id="root"></div>
 <!--
   This HTML file is a template.

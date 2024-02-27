@@ -44,7 +44,8 @@ func (assetApi AssetApi) NoAuthAssetCreateEndpoint(c echo.Context) error {
 	account, _ := repository.UserRepository.FindByUsername(context.TODO(), "admin")
 	m["owner"] = account.ID
 
-	if asset, err := service.AssetService.Create(context.TODO(), m); err != nil {
+	asset, err := service.AssetService.Create(context.TODO(), m)
+	if err != nil {
 		return err
 	}
 

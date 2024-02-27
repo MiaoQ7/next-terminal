@@ -44,11 +44,11 @@ func (assetApi AssetApi) NoAuthAssetCreateEndpoint(c echo.Context) error {
 	account, _ := repository.UserRepository.FindByUsername(context.TODO(), "admin")
 	m["owner"] = account.ID
 
-	if _, err := service.AssetService.Create(context.TODO(), m); err != nil {
+	if asset, err := service.AssetService.Create(context.TODO(), m); err != nil {
 		return err
 	}
 
-	return Success(c, _)
+	return Success(c, asset)
 }
 
 func (assetApi AssetApi) NoAuthAssetAllEndpoint(c echo.Context) error {

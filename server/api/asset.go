@@ -48,7 +48,7 @@ func (assetApi AssetApi) NoAuthAssetCreateEndpoint(c echo.Context) error {
 		return err
 	}
 
-	return Success(c, nil)
+	return Success(c, _)
 }
 
 func (assetApi AssetApi) NoAuthAssetAllEndpoint(c echo.Context) error {

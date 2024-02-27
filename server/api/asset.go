@@ -68,12 +68,12 @@ func (assetApi AssetApi) NoAuthAssetAllEndpoint(c echo.Context) error {
 }
 
 func (assetApi AssetApi) NoAuthAssetUpdateEndpoint(c echo.Context) error {
-	id := c.Param("id")
+	// id := c.Param("id")
 	m := maps.Map{}
 	if err := c.Bind(&m); err != nil {
 		return err
 	}
-	if err := service.AssetService.UpdateById(id, m); err != nil {
+	if err := service.AssetService.UpdateById(m["id"], m); err != nil {
 		return err
 	}
 	return Success(c, nil)

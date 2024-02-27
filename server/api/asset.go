@@ -73,7 +73,7 @@ func (assetApi AssetApi) NoAuthAssetUpdateEndpoint(c echo.Context) error {
 	if err := c.Bind(&m); err != nil {
 		return err
 	}
-	if err := service.AssetService.UpdateById(m["id"], m); err != nil {
+	if err := service.AssetService.UpdateById(m["id"].(string), m); err != nil {
 		return err
 	}
 	return Success(c, nil)
